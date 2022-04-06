@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +16,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  //created controller and isMapCreated variables
+  late GoogleMapController _controller;
+  bool isMapCreated = false;
+  int count = 0;
+
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
+    //Updates code to account for style
+    _controller = controller;
+    isMapCreated = true;
+    changeMapMode();
+    setState(() {});
     final googleOffices = await locations.getGoogleOffices();
     setState(() {
       _markers.clear();
@@ -32,22 +44,70 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
+  // final Map<String, Marker> _markers = {};
+  // Future<void> _onMapCreated(GoogleMapController controller) async {
+  //   final googleOffices = await locations.getGoogleOffices();
+  //   setState(() {
+  //     _markers.clear();
+  //     for (final office in googleOffices.offices) {
+  //       final marker = Marker(
+  //         markerId: MarkerId(office.name),
+  //         position: LatLng(office.lat, office.lng),
+  //         infoWindow: InfoWindow(
+  //           title: office.name,
+  //           snippet: office.address,
+  //         ),
+  //       );
+  //       _markers[office.name] = marker;
+  //     }
+  //   });
+  // }
 
+  //Neccessary helper functions to read Json and change map style
   @override
+  void initState() {
+    super.initState();
+  }
+
+  changeMapMode() {
+    getJsonFile("assets/Clear.json").then(setMapStyle);
+  }
+
+  Future<String> getJsonFile(String path) async {
+    return await rootBundle.loadString(path);
+  }
+
+  void setMapStyle(String mapStyle) {
+    _controller.setMapStyle(mapStyle);
+  }
+
   Widget build(BuildContext context) {
+    if (isMapCreated) {
+      changeMapMode();
+    }
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Google Office Locations'),
-          backgroundColor: Colors.green[700],
+          title: Text('Back To Hue: pressed button $count times'),
+          backgroundColor: Colors.blueAccent[700],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => setState(() {
+            count++;
+          }),
+          tooltip: 'Increment Counter',
+          child: const Icon(Icons.add),
         ),
         body: GoogleMap(
+          //edited here for new style
           onMapCreated: _onMapCreated,
+          zoomControlsEnabled: false,
+          // onMapCreated: _onMapCreated,
           initialCameraPosition: const CameraPosition(
             target: LatLng(0, 0),
             zoom: 2,
           ),
-          markers: _markers.values.toSet(),
+          // markers: _markers.values.toSet(),
         ),
       ),
     );
