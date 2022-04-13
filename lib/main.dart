@@ -1,7 +1,7 @@
-import 'package:flutter/gestures.dart';
+// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'src/locations.dart' as locations;
+// import 'src/locations.dart' as locations;
 import 'package:flutter/services.dart';
 
 void main() {
@@ -28,20 +28,20 @@ class _MyAppState extends State<MyApp> {
     isMapCreated = true;
     changeMapMode();
     setState(() {});
-    final googleOffices = await locations.getGoogleOffices();
+    // final googleOffices = await locations.getGoogleOffices();
     setState(() {
       _markers.clear();
-      for (final office in googleOffices.offices) {
-        final marker = Marker(
-          markerId: MarkerId(office.name),
-          position: LatLng(office.lat, office.lng),
-          infoWindow: InfoWindow(
-            title: office.name,
-            snippet: office.address,
-          ),
-        );
-        _markers[office.name] = marker;
-      }
+      // for (final office in googleOffices.offices) {
+      //   final marker = Marker(
+      //     markerId: MarkerId(office.name),
+      //     position: LatLng(office.lat, office.lng),
+      //     infoWindow: InfoWindow(
+      //       title: office.name,
+      //       snippet: office.address,
+      //     ),
+      //   );
+      //   _markers[office.name] = marker;
+      // }
     });
   }
   // final Map<String, Marker> _markers = {};
@@ -107,7 +107,13 @@ class _MyAppState extends State<MyApp> {
             target: LatLng(0, 0),
             zoom: 2,
           ),
-          // markers: _markers.values.toSet(),
+          markers: _markers.values.toSet(),
+          onTap: (LatLng latLng) {
+            _markers[DateTime.now().toString()] = (Marker(
+                markerId: MarkerId(DateTime.now().toString()),
+                position: latLng)); //using DateTime to generate new key, will change in future for unique key
+            setState(() {});
+          },  // onTap
         ),
       ),
     );
