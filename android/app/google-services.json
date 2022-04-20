@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "846277216959",
+    "project_id": "back-to-hue",
+    "storage_bucket": "back-to-hue.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846277216959:android:01d627b6d2dc6f6237940a",
+        "android_client_info": {
+          "package_name": "com.example.back_to_hue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846277216959-qg4f1b9q1p708b0iqr43fnh8bs0otsb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.back_to_hue",
+            "certificate_hash": "5844d2ead1c1b5a79ba9149d8d1edc4f7c187044"
+          }
+        },
+        {
+          "client_id": "846277216959-435dhof9uo4s3fcarr01gdt4btl5frad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1YiklUfOr9exdWqPKK0lIu3FdJkdnZWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846277216959-435dhof9uo4s3fcarr01gdt4btl5frad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
