@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.back_to_hue">
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
    <application
         android:label="back_to_hue"
         android:name="${applicationName}"

@@ -3,9 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
 import 'package:flutter/services.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
+import 'pages/contact_list_page.dart';
+import 'pages/contact_page.dart';
+import 'pages/edit_contact_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MaterialApp(
+      title: 'Back to Hue',
+      // Navigation
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyApp(),
+        '/contactList': (context) => ContactListPage(),
+        '/contact': (context) => ContactPage(),
+        '/editContact': (context) => EditContactPage(),
+      },
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -88,8 +104,26 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Back To Hue: pressed button $count times'),
-          backgroundColor: Colors.blueAccent[700],
+            title: Text('Back To Hue: pressed button $count times'),
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: <Color>[
+                        Colors.white,
+                        Colors.blue
+                      ])
+              ),
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                child: const Text('Contacts'),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/contactList');
+                },
+              ),
+            ]
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => setState(() {
